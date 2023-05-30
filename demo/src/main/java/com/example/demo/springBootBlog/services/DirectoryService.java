@@ -5,6 +5,7 @@ import com.example.demo.springBootBlog.repositories.DirectoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -18,6 +19,10 @@ public class DirectoryService {
 
     public List<Directory> getAllDirectory() {
         return directoryRepository.findAll();
+    }
+
+    public List<Directory> sortDirectoryByField(String field) {
+        return directoryRepository.findAll(Sort.by(Sort.Direction.DESC, field));
     }
 
     public Page<Directory> directoryWithPagination(int offset, int pageSize) {

@@ -1,12 +1,10 @@
 import React from 'react'
-import DirNav from './DirNav'
-import Hero from './Hero'
+import DirHero from './DirHero'
 
 function Directory() {
     return (
         <div>
-            <DirNav />
-            <Hero />
+            <DirHero />
         </div>
     )
 }
