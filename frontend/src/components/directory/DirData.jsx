@@ -30,12 +30,12 @@ function DirData() {
         <div>
             {directoryData.map((directory) => (
                 <div className="grid grid-cols-10 gap-2 border-b border-black pb-2" key={directory.id}>
-                    <div className="border-r border-black pr-2"><p>{directory.id}</p></div>
                     <div className="border-r border-black pr-2"><p>{directory.name}</p></div>
                     <div className="border-r border-black pr-2"><p>{directory.age}</p></div>
                     <div className="border-r border-black pr-2"><p>{directory.company}</p></div>
                     <div className="border-r border-black pr-2"><p>{directory.startingDate}</p></div>
                     <div className="border-r border-black pr-2"><p>{directory.industry}</p></div>
+                    <div className="border-r border-black pr-2"><p>{directory.idea}</p></div>
                     <div className="border-r border-black pr-2"><p>{directory.education}</p></div>
 
                     <div className="border-r border-black pr-2 col-span-2 flex py-1">

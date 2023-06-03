@@ -6,7 +6,7 @@ function BlogHero() {
         <div className="p-20 flex justify-between items-center border border-b-gray-700">
             <div>
                 <p className="font-bold text-5xl my-4">Insights from our team</p>
-                <p className='text-gray-600'>Powerful Trading Tools and Features for Experienced Investors</p>
+                <p className='text-gray-600'>Gaining Valuable Perspectives and Expertise, Powerful Insights from Our Dynamic Team</p>
             </div>
             <div className="flex md:order-2">
                 {/* <div className="relative">

@@ -17,7 +17,7 @@ function BlogBodyRight() {
             method: 'GET'
         };
 
-        fetch(`http://localhost:8080/api/blogs/getWithPagination?offset=${page}&pageSize=${pageSize}`, requestOptions)
+        fetch(`http://localhost:8080/api/blogs/getWithPaginationAndSort?offset=${page}&pageSize=${pageSize}&field=createdDate`, requestOptions)
             .then(response => response.json())
             .then(data => setBlogData(data.content))
             .catch(error => console.log('error', error));
@@ -38,9 +38,9 @@ function BlogBodyRight() {
     return (
         <div>
             <div className='pl-16'>
-                <div className="font-semibold text-sky-600 text-3xl">Tranding Blogs</div>
+                <div className="font-semibold text-sky-600 text-3xl">Trending Blogs</div>
             </div>
-            {blogData.map((blog) => (
+            {blogData && blogData.map((blog) => (
                 <div className='p-8 m-4 border border-gray-500 rounded-md flex flex-col justify-between' key={blog.id}>
                     <div className='flex justify-between'>
                         <div>

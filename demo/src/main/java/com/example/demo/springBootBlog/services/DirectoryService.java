@@ -29,6 +29,10 @@ public class DirectoryService {
         return directoryRepository.findAll(PageRequest.of(offset, pageSize));
     }
 
+    public Page<Directory> directoryWithPaginationAndSort(int offset, int pageSize, String field) {
+        return directoryRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.Direction.DESC, field));
+    }
+
     public void saveDirectory(Directory directory){
         directoryRepository.save(directory);
     }
@@ -52,5 +56,17 @@ public class DirectoryService {
         } else {
             throw new IllegalStateException("Blog with id : " + dirId + " does not exists !");
         }
+    }
+
+    public void deleteDirectory(Long directoryId) {
+        boolean dirExist = directoryRepository.existsById(directoryId);
+        if (!dirExist){
+            throw new IllegalStateException("Directory with id : " + directoryId + " does not exists !");
+        }
+        directoryRepository.deleteById(directoryId);
+    }
+
+    public boolean existsByNameAndCompany(String name, String company) {
+        return directoryRepository.existsByNameAndCompany(name, company);
     }
 }

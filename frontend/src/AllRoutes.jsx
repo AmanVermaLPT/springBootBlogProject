@@ -6,6 +6,8 @@ import Blog from './components/blog/Blog';
 import EditDirectoryForm from './components/directory/EditDirectoryForm';
 import CreateBlogForm from './components/blog/CreateBlogForm';
 import EditBlogForm from './components/blog/EditBlogForm';
+import Login from './components/navbar/Login';
+import RegisterForm from './components/navbar/RegisterForm';
 
 function AllRoutes() {
     return (
@@ -17,6 +19,8 @@ function AllRoutes() {
                 <Route path="/createBlog" element={<CreateBlogForm />} />
                 <Route path="/editDir/:directoryId" element={<EditDirectoryForm />} />
                 <Route path="/editBlog/:blogId" element={<EditBlogForm />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<RegisterForm />} />
             </Routes>
         </div>
     )

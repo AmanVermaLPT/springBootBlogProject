@@ -40,7 +40,7 @@ function CreateBlogForm() {
                 console.error('Error saving blog:', error);
             });
 
-        nevigate("/blog");
+        nevigate("/");
     };
 
     return (

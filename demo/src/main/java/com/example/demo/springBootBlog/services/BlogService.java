@@ -31,7 +31,7 @@ public class BlogService {
     }
 
     public Page<Blog> BlogsWithPaginationAndSorting(int offset, int pageSize, String field){
-        return blogRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+        return blogRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.Direction.DESC, field));
     }
 
     public void saveBlog(Blog blog){

@@ -43,12 +43,12 @@ function DirHero() {
             </div>
             <div className="p-8 border border-blue-900 rounded-md m-4">
                 <div className="grid grid-cols-10 gap-2 border-b border-black pb-2">
-                    <div className="border-r border-black pr-2 font-bold"><p>Id</p></div>
                     <div className="border-r border-black pr-2 font-bold"><p>Name</p></div>
                     <div className="border-r border-black pr-2 font-bold"><p>Age</p></div>
                     <div className="border-r border-black pr-2 font-bold"><p>Company</p></div>
                     <div className="border-r border-black pr-2 font-bold"><p>Starting Date</p></div>
                     <div className="border-r border-black pr-2 font-bold"><p>Industry</p></div>
+                    <div className="border-r border-black pr-2 font-bold"><p>Idea</p></div>
                     <div className="border-r border-black pr-2 font-bold"><p>Education</p></div>
                     <div className="border-r border-black pr-2 font-bold col-span-2"><p>Number</p></div>
                     <div className=""></div>

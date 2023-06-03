@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -45,6 +46,13 @@ public class DirectoryController {
         return directoryService.directoryWithPagination(offset, pageSize);
     }
 
+    @GetMapping("/getWithPaginationAndSort")
+    public Page<Directory> getDirectoryWithPaginationAndSort(@RequestParam("offset") int offset,
+                                                             @RequestParam("pageSize") int pageSize,
+                                                             @RequestParam("field") String field){
+        return directoryService.directoryWithPaginationAndSort(offset, pageSize, field);
+    }
+
     @PostMapping("/create")
     public void createDir(@RequestBody Directory directory){
         try{
@@ -69,6 +77,8 @@ public class DirectoryController {
 
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheetAt(0);
+
+            List<Directory> directoriesToRemove = new ArrayList<>();
 
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) {
@@ -95,6 +105,12 @@ public class DirectoryController {
                 Cell companyCell = row.getCell(3);
                 if (companyCell != null) {
                     directory.setCompany(companyCell.getStringCellValue());
+                }
+
+                boolean existsInDatabase = directoryService.existsByNameAndCompany(directory.getName(), directory.getCompany());
+                if (existsInDatabase) {
+                    directoriesToRemove.add(directory);
+                    continue;
                 }
 
                 Cell startingDateCell = row.getCell(4);
@@ -136,6 +152,10 @@ public class DirectoryController {
             workbook.close();
             inputStream.close();
 
+            for (Directory directory : directoriesToRemove) {
+                directoryService.deleteDirectory(directory.getId());
+            }
+
             System.out.println("Excel data imported and saved successfully.");
         } catch (Exception e) {
             e.printStackTrace();
@@ -143,5 +163,8 @@ public class DirectoryController {
         }
     }
 
-
+    @DeleteMapping(path = "{directoryId}")
+    public void deleteDirectory(@PathVariable("directoryId") Long directoryId){
+        directoryService.deleteDirectory(directoryId);
+    }
 }

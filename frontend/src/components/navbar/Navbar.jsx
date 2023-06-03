@@ -28,7 +28,10 @@ function Navbar() {
                                 <Link to="/blog" className="block py-2 text-black px-4 hover:bg-[#8696FE] p-4 rounded-lg cursor-pointer">Guide to Get Started</Link>
                             </li>
                             <li>
-                                <Link to="directory" className="block py-2 text-black px-4 hover:bg-[#8696FE] p-4 rounded-lg cursor-pointer">Founder's Directory</Link>
+                                <Link to="/directory" className="block py-2 text-black px-4 hover:bg-[#8696FE] p-4 rounded-lg cursor-pointer">Founder's Directory</Link>
+                            </li>
+                            <li>
+                                <Link to="/login" className="block py-2 text-black px-4 bg-[#8696FE] hover:bg-[#11009E] hover:text-white p-4 rounded-lg cursor-pointer">Login</Link>
                             </li>
                         </ul>
                     </div>
