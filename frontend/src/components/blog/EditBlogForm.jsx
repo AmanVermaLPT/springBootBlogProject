@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 
 function EditBlogForm() {
@@ -40,12 +41,17 @@ function EditBlogForm() {
         }
     };
 
-    const updateBlog = async () => {
+    const updateBlog = async (e) => {
+
+        e.preventDefault();
+
         try {
             await axios.put(`http://localhost:8080/api/blogs/update/${blogId}`, editedBlog);
             nevigate("/");
+            toast.success('Blog updated successfully...');
         } catch (error) {
             console.log('Error updating blog:', error);
+            toast.success('Error updating blog !!!');
         }
     };
 

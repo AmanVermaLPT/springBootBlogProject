@@ -56,7 +56,7 @@ public class BlogService {
             existBlog.setAuthor(updatedBlog.getAuthor());
             existBlog.setTags(updatedBlog.getTags());
             existBlog.setModifiedDate(new Date());
-            return blogRepository.save(updatedBlog);
+            return blogRepository.save(existBlog);
         } else {
             throw new IllegalStateException("Blog with id : " + blogId + " does not exists !");
         }

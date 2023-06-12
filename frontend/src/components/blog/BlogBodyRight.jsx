@@ -24,7 +24,7 @@ function BlogBodyRight() {
     const fetchBlogData = async (page) => {
         try {
             const response = await axios.get(
-                `http://localhost:8080/api/blogs/getWithPaginationAndSort?offset=${page}&pageSize=${pageSize}&field=createdDate`
+                `http://localhost:8080/api/blogs/getWithPaginationAndSort?offset=${page}&pageSize=${pageSize}&field=modifiedDate`
             );
             setBlogData(response.data.content);
         } catch (error) {

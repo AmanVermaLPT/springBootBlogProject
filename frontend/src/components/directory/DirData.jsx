@@ -51,25 +51,32 @@ function DirData() {
             return;
         }
 
+        if (show === directoryId) {
+            setShow(null);
+            return;
+        }
+
         setShow((prevShow) => (prevShow === directoryId ? null : directoryId));
 
-        setViewData((prevData) => ({
-            ...prevData,
-            [directoryId]: {
-                userId: loggedInUserId,
-                directoryId: directoryId,
-                viewCount: prevData[directoryId] ? prevData[directoryId].viewCount + 1 : 1,
-                viewDate: viewDate
-            },
-        }));
+        if (userRole !== "ROLE_ADMIN") {
+            setViewData((prevData) => ({
+                ...prevData,
+                [directoryId]: {
+                    userId: loggedInUserId,
+                    directoryId: directoryId,
+                    viewCount: prevData[directoryId] ? prevData[directoryId].viewCount + 1 : 1,
+                    viewDate: viewDate
+                },
+            }));
 
-        try {
-            if (viewData[directoryId]) {
-                await axios.post('http://localhost:8080/api/saveViewData', viewData[directoryId]);
-                console.log('View data saved successfully!');
+            try {
+                if (viewData[directoryId]) {
+                    await axios.post('http://localhost:8080/api/saveViewData', viewData[directoryId]);
+                    console.log('View data saved successfully!');
+                }
+            } catch (error) {
+                console.log('Error saving view data:', error);
             }
-        } catch (error) {
-            console.log('Error saving view data:', error);
         }
     };
 
@@ -89,10 +96,12 @@ function DirData() {
                     <div className="border-r border-black pr-2"><p>{directory.idea}</p></div>
                     <div className="border-r border-black pr-2"><p>{directory.education}</p></div>
 
-                    <div className="border-r border-black pr-2 col-span-2 flex py-1">
+                    <div className="border-r border-black pr-2 col-span-2 flex py-1 items-center justify-evenly">
                         <button className='border rounded-lg bg-[#8696FE] px-2'
-                            onClick={() => showNumber(directory.id)}>Show Number</button>
-                        {show === directory.id && <p>{directory.number}</p>}
+                            onClick={() => showNumber(directory.id)}>
+                            {show === directory.id ? "Hide" : "Show"}
+                        </button>
+                        <p>{show === directory.id && <span>{directory.number}</span>}</p>
                     </div>
                     {userRole === "ROLE_ADMIN" && (
                         <Link to={`/editDir/${directory.id}`}>

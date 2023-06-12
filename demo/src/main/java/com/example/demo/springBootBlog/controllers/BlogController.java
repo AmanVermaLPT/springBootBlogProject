@@ -49,6 +49,7 @@ public class BlogController {
     public void createBlog(@RequestBody Blog blog){
         try {
             blog.setCreatedDate(new Date());
+            blog.setModifiedDate(new Date());
             blogService.saveBlog(blog);
             System.out.println(blog.toString());
         }
