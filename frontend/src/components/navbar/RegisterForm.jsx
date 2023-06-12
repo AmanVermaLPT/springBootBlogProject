@@ -10,48 +10,40 @@ function RegisterForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
 
         e.preventDefault();
 
-        const userLoginData = {
+        const userRegisterData = {
             userName, email, password
         }
 
-        let requestOptions = {
-            method: 'POST',
-            body: JSON.stringify(userLoginData),
-            headers: {
-                'Content-Type': 'application/json',
+
+        try {
+            const response = await fetch('http://localhost:8080/register', {
+                method: 'POST',
+                body: JSON.stringify(userRegisterData),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to register user!');
             }
-        };
 
+            const responseBody = await response.json();
+            const authToken = responseBody.token;
 
-        fetch('http://localhost:8080/api/auth/registerNewUser', requestOptions)
-            .then((response) => {
-                console.log(response);
-                if (!response.ok) {
-                    throw new Error("Faild to register user !");
-                }
-                return response.text();
-            })
-            .then((body) => {
-                console.log(body);
-                if (body === 'User registered successfully!') {
-                    toast.success('User registered successfully.');
-                    navigate('/');
-                } else {
-                    toast.error('Failed to register user!');
-                }
-            })
-            // .then(() => {
-            //     toast.success("User registered successfully.");
-            //     navigate('/');
-            // })
-            .catch((error) => {
-                // toast.error("Faild to register user !")
-                console.error("Error saving user : ", error)
-            })
+            // Store the authentication token in local storage
+            localStorage.setItem('authToken', authToken);
+
+            toast.success('User registered successfully.');
+            navigate('/');
+        } catch (error) {
+            console.error('Error registering user: ', error);
+            toast.error('Failed to register user!');
+        }
     };
 
     useEffect(() => {

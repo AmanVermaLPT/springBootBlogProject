@@ -1,15 +1,38 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
 import { ReactComponent as Hamburger } from '../assests/burger.svg'
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function Navbar() {
-
+    const navigate = useNavigate();
 
     const [showNav, setShowNav] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const handleNavButton = () => {
         setShowNav(!showNav);
     }
+
+    const handleLogout = () => {
+        // Clear the user's data from local storage
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userRoles');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userName');
+        setIsLoggedIn(false);
+        toast.success('User logout successfully.');
+        navigate('/login');
+    };
+
+    useEffect(() => {
+        // Check if the authentication token is present in local storage
+        const authToken = localStorage.getItem('authToken');
+        if (authToken) {
+            setIsLoggedIn(true);
+        } else {
+            setIsLoggedIn(false);
+        }
+    }, []);
 
     return (
         <div>
@@ -30,9 +53,25 @@ function Navbar() {
                             <li>
                                 <Link to="/directory" className="block py-2 text-black px-4 hover:bg-[#8696FE] p-4 rounded-lg cursor-pointer">Founder's Directory</Link>
                             </li>
-                            <li>
-                                <Link to="/login" className="block py-2 text-black px-4 bg-[#8696FE] hover:bg-[#11009E] hover:text-white p-4 rounded-lg cursor-pointer">Login</Link>
-                            </li>
+                            {!isLoggedIn ? (
+                                <li>
+                                    <Link
+                                        to="/login"
+                                        className="block py-2 text-black px-4 bg-[#8696FE] hover:bg-[#11009E] hover:text-white p-4 rounded-lg cursor-pointer"
+                                    >
+                                        Login
+                                    </Link>
+                                </li>
+                            ) : (
+                                <li>
+                                    <button
+                                        className="block py-2 text-black px-4 bg-[#8696FE] hover:bg-[#11009E] hover:text-white p-4 rounded-lg cursor-pointer"
+                                        onClick={handleLogout}
+                                    >
+                                        Logout
+                                    </button>
+                                </li>
+                            )}
                         </ul>
                     </div>
                 </div>

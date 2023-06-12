@@ -4,7 +4,7 @@ import axios from 'axios';
 
 function EditDirectoryForm() {
     const { directoryId } = useParams();
-    const nevigate = useNavigate();
+    const navigate = useNavigate();
 
     const [editedDirectory, setEditedDirectory] = useState({
         name: '',
@@ -45,7 +45,7 @@ function EditDirectoryForm() {
     const updateDirectory = async () => {
         try {
             await axios.put(`http://localhost:8080/api/dir/update/${directoryId}`, editedDirectory);
-            nevigate("/directory");
+            navigate("/directory");
         } catch (error) {
             console.log('Error updating directory:', error);
         }

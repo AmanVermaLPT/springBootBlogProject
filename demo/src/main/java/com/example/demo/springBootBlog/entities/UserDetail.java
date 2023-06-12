@@ -3,22 +3,20 @@ package com.example.demo.springBootBlog.entities;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
+import java.security.SecureRandom;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "user_details")
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class UserDetail  {
+
+//    @Autowired
+//    private UserRepository userRepository;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,27 +36,36 @@ public class UserDetail  {
     )
     private List<Role> roles = new ArrayList<>();
 
+    public UserDetail() {
+        generateUserId();
+    }
+
     private void generateUserId(){
         String firstPart = "U";
         String randomNumber = generateRandomNumber(5);
         String lastPart = "I";
         userId = firstPart + randomNumber + lastPart;
+//        boolean isUnique = false;
+
+//        do {
+//            randomNumber = generateRandomNumber(5);
+//            userId = firstPart + randomNumber + lastPart;
+//            isUnique = checkIfUserIdExists(userId);
+//        } while (isUnique);
     }
 
     private String generateRandomNumber(int length){
+        SecureRandom random = new SecureRandom();
         StringBuilder sb = new StringBuilder(length);
         for (int i=0; i<length; i++){
-            int randomDigit = (int) (Math.random()*10);
+            int randomDigit = random.nextInt(10);
             sb.append(randomDigit);
         }
         return sb.toString();
     }
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        List<SimpleGrantedAuthority> authorities=  this.roles.stream().map((role)->
-//                new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toList());
-//        return authorities;
+//    private boolean checkIfUserIdExists(String userId) {
+//        return userRepository.existsByUserId(userId);
 //    }
 
     @Override

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function BlogBodyRight() {
 
@@ -8,20 +9,28 @@ function BlogBodyRight() {
 
     const pageSize = 12;
 
+    let userRole = '';
+
+    // Decode the JWT token
+    const roles = localStorage.getItem('userRoles');
+    if (roles) {
+        userRole = roles;
+    }
+
     useEffect(() => {
         fetchBlogData(currentPage);
     }, [currentPage]);
 
-    const fetchBlogData = (page) => {
-        var requestOptions = {
-            method: 'GET'
-        };
-
-        fetch(`http://localhost:8080/api/blogs/getWithPaginationAndSort?offset=${page}&pageSize=${pageSize}&field=createdDate`, requestOptions)
-            .then(response => response.json())
-            .then(data => setBlogData(data.content))
-            .catch(error => console.log('error', error));
-    }
+    const fetchBlogData = async (page) => {
+        try {
+            const response = await axios.get(
+                `http://localhost:8080/api/blogs/getWithPaginationAndSort?offset=${page}&pageSize=${pageSize}&field=createdDate`
+            );
+            setBlogData(response.data.content);
+        } catch (error) {
+            console.log('Error fetching blog data:', error);
+        }
+    };
 
     const formatDate = (dateString) => {
         if (dateString) {
@@ -54,11 +63,13 @@ function BlogBodyRight() {
                             <img src='https://picsum.photos/200' alt='img' />
                         </div>
                     </div>
-                    <Link to={`/editBlog/${blog.id}`}>
-                        <div className="p-2">
-                            <button className='border rounded-lg bg-[#11009E] text-white px-2'>Edit Blog</button>
-                        </div>
-                    </Link>
+                    {userRole === "ROLE_ADMIN" && (
+                        <Link to={`/editBlog/${blog.id}`}>
+                            <div className="p-2">
+                                <button className='border rounded-lg bg-[#11009E] text-white px-2'>Edit Blog</button>
+                            </div>
+                        </Link>
+                    )}
                 </div>
             ))}
             <div className='flex justify-center mt-4'>

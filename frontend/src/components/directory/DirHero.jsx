@@ -5,6 +5,14 @@ function DirHero() {
 
     const [file, setFile] = useState(null);
 
+    let userRole = '';
+
+    // Decode the JWT token
+    const roles = localStorage.getItem('userRoles');
+    if (roles) {
+        userRole = roles;
+    }
+
     const handleFileChange = (event) => {
         const selectedFile = event.target.files[0];
         setFile(selectedFile);
@@ -36,11 +44,13 @@ function DirHero() {
 
     return (
         <div>
-            <div className="p-8 border border-blue-900 rounded-md m-4">
-                <h2 className="font-bold text-xl mb-2">Upload Your File</h2>
-                <input type="file" name="file" onChange={handleFileChange} />
-                <button className='border rounded-lg bg-[#11009E] text-white px-4 py-2' onClick={handleUpload}>Upload</button>
-            </div>
+            {userRole === "ROLE_ADMIN" && (
+                <div className="p-8 border border-blue-900 rounded-md m-4">
+                    <h2 className="font-bold text-xl mb-2">Upload Your File</h2>
+                    <input type="file" name="file" onChange={handleFileChange} />
+                    <button className='border rounded-lg bg-[#11009E] text-white px-4 py-2' onClick={handleUpload}>Upload</button>
+                </div>
+            )}
             <div className="p-8 border border-blue-900 rounded-md m-4">
                 <div className="grid grid-cols-10 gap-2 border-b border-black pb-2">
                     <div className="border-r border-black pr-2 font-bold"><p>Name</p></div>
