@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { baseURL } from '../Helper';
 import axios from 'axios';
 
 function EditDirectoryForm() {
@@ -29,7 +30,7 @@ function EditDirectoryForm() {
         };
 
         try {
-            fetch(`http://localhost:8080/api/dir/get`, requestOptions)
+            fetch(`${baseURL}/api/dir/get`, requestOptions)
                 .then(response => response.json())
                 .then(results => {
                     setEditedDirectory(results.filter(result => result.id === Number(directoryId))[0]);
@@ -44,7 +45,7 @@ function EditDirectoryForm() {
 
     const updateDirectory = async () => {
         try {
-            await axios.put(`http://localhost:8080/api/dir/update/${directoryId}`, editedDirectory);
+            await axios.put(`${baseURL}/api/dir/update/${directoryId}`, editedDirectory);
             navigate("/directory");
         } catch (error) {
             console.log('Error updating directory:', error);

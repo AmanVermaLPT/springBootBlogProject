@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { baseURL } from '../Helper';
 
 function CreateBlogForm() {
 
@@ -28,7 +29,7 @@ function CreateBlogForm() {
             body: JSON.stringify(blogData),
         };
 
-        fetch('http://localhost:8080/api/blogs/create', requestOptions)
+        fetch(`${baseURL}/api/blogs/create`, requestOptions)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to save blog');

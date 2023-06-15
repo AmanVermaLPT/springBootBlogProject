@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import DirData from './DirData'
+import { baseURL } from '../Helper';
 
 function DirHero() {
 
@@ -23,7 +24,7 @@ function DirHero() {
             const formData = new FormData();
             formData.append('file', file);
 
-            fetch('http://localhost:8080/api/dir/import', {
+            fetch(`${baseURL}/api/dir/import`, {
                 method: 'POST',
                 body: formData
             })

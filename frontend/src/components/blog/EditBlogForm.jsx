@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { baseURL } from '../Helper';
 import axios from 'axios';
 
 function EditBlogForm() {
@@ -27,7 +28,7 @@ function EditBlogForm() {
         };
 
         try {
-            fetch(`http://localhost:8080/api/blogs/get`, requestOptions)
+            fetch(`${baseURL}/api/blogs/get`, requestOptions)
                 .then(response => response.json())
                 .then(results => {
                     setEditedBlog(results.filter(result => result.id === Number(blogId))[0]);
@@ -46,7 +47,7 @@ function EditBlogForm() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8080/api/blogs/update/${blogId}`, editedBlog);
+            await axios.put(`${baseURL}/api/blogs/update/${blogId}`, editedBlog);
             nevigate("/");
             toast.success('Blog updated successfully...');
         } catch (error) {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { baseURL } from '../Helper';
 import { toast } from 'react-toastify';
 
 function RegisterForm() {
@@ -20,7 +21,7 @@ function RegisterForm() {
 
 
         try {
-            const response = await fetch('http://localhost:8080/register', {
+            const response = await fetch(`${baseURL}/register`, {
                 method: 'POST',
                 body: JSON.stringify(userRegisterData),
                 headers: {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
+import { baseURL } from '../Helper';
 import axios from 'axios';
 
 function BlogBodyRight() {
@@ -24,7 +25,7 @@ function BlogBodyRight() {
     const fetchBlogData = async (page) => {
         try {
             const response = await axios.get(
-                `http://localhost:8080/api/blogs/getWithPaginationAndSort?offset=${page}&pageSize=${pageSize}&field=modifiedDate`
+                `${baseURL}/api/blogs/getWithPaginationAndSort?offset=${page}&pageSize=${pageSize}&field=modifiedDate`
             );
             setBlogData(response.data.content);
         } catch (error) {

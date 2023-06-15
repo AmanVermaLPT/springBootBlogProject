@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
+import { baseURL } from '../Helper';
 import axios from 'axios';
 import Modal from '../modal/Modal';
 
@@ -29,9 +30,7 @@ function DirData() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(
-                    'http://localhost:8080/api/dir/getWithSort?field=createdDate'
-                );
+                const response = await axios.get(`${baseURL}/api/dir/getWithSort?field=createdDate`);
                 setDirectoryData(response.data);
 
             } catch (error) {
@@ -71,7 +70,7 @@ function DirData() {
 
             try {
                 if (viewData[directoryId]) {
-                    await axios.post('http://localhost:8080/api/saveViewData', viewData[directoryId]);
+                    await axios.post(`${baseURL}/api/saveViewData`, viewData[directoryId]);
                     console.log('View data saved successfully!');
                 }
             } catch (error) {

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:8080';
+// export const baseURL = 'http://localhost:8080';
+export const baseURL = 'http://yfclub-env.eba-mkvkvukm.ap-south-1.elasticbeanstalk.com';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 export const getAuthToken = () => {

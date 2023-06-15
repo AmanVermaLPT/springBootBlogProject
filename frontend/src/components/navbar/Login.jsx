@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { baseURL } from '../Helper';
 import { toast } from 'react-toastify';
 
 function Login() {
@@ -14,7 +15,7 @@ function Login() {
         e.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:8080/login", {
+            const response = await axios.post(`${baseURL}/login`, {
                 email: email,
                 password: password
             });
