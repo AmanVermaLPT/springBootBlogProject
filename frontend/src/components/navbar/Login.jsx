@@ -38,6 +38,7 @@ function Login() {
 
             toast.success('User logged in successfully.');
             navigate("/");
+            window.location.reload();
         }
         catch (error) {
             console.error("Error logging user : ", error);

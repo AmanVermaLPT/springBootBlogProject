@@ -26,7 +26,13 @@ function DirHero() {
 
             fetch(`${baseURL}/api/dir/import`, {
                 method: 'POST',
-                body: formData
+                body: formData,
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Credentials": "true ",
+                    "Access-Control-Allow-Methods": "OPTIONS, GET, POST",
+                    "Access-Control-Allow-Headers": "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control"
+                }
             })
                 .then(response => {
                     if (response.ok) {

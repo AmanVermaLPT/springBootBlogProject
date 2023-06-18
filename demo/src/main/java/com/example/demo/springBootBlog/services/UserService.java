@@ -73,11 +73,6 @@ public class UserService {
         if (user == null) {
             throw new AppException("Unknown user", HttpStatus.NOT_FOUND);
         }
-
-        System.out.println(
-                user.getRoles()
-        );
-
         return user.getRoles().stream()
                 .map( Role::getRoleName)
                 .collect(Collectors.joining(","));

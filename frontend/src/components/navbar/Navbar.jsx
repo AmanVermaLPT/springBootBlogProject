@@ -53,7 +53,7 @@ function Navbar() {
                             <li>
                                 <Link to="/directory" className="block py-2 text-black px-4 hover:bg-[#8696FE] p-4 rounded-lg cursor-pointer">Founder's Directory</Link>
                             </li>
-                            {!isLoggedIn ? (
+                            {isLoggedIn === false ? (
                                 <li>
                                     <Link
                                         to="/login"

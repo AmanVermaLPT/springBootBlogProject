@@ -28,6 +28,7 @@ function DirData() {
 
 
     useEffect(() => {
+
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${baseURL}/api/dir/getWithSort?field=createdDate`);
